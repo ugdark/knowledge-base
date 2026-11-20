@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Knowledge Base</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4.13.1/lib/themes/vue.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'Knowledge Base',
+      repo: '',
+      loadSidebar: true,
+      subMaxLevel: 2,
+      search: {
+        placeholder: '検索...',
+        noData: '見つかりませんでした',
+        paths: 'auto'
+      },
+      auto2top: true,
+      markdown: {
+        renderer: {
+          code: function (code, lang) {
+            if (lang === 'mermaid') {
+              var esc = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+              return '<pre class="mermaid">' + esc + '</pre>'
+            }
+            return this.origin.code.apply(this, arguments)
+          }
+        }
+      },
+      plugins: [
+        function (hook) {
+          hook.doneEach(function () {
+            mermaid.run({ querySelector: 'pre.mermaid' })
+          })
+        }
+      ]
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: false })</script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4.13.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4.13.1/lib/plugins/search.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-scala.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-sql.min.js"></script>
+</body>
+</html>
